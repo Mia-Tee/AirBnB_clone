@@ -1,16 +1,18 @@
 #!/usr/bin/python3
-"""Defines the HBnB console."""
+
+"""This module is being used to define the HBnB console."""
+
 import cmd
 import re
 from shlex import split
+from models import storage
+from models.base_model import BaseModel
+from models.user import User
 from models.state import State
 from models.city import City
 from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
-from models import storage
-from models.base_model import BaseModel
-from models.user import User
 
 
 def parse(arg):
@@ -32,10 +34,10 @@ def parse(arg):
 
 
 class HBNBCommand(cmd.Cmd):
-    """The HolbertonBnB command interpreter.
+    """Defining the HolbertonBnB command interpreter.
 
     Attributes:
-        prompt (str): Command prompt.
+        prompt (str): The command prompt.
     """
 
     prompt = "(hbnb) "
@@ -50,11 +52,11 @@ class HBNBCommand(cmd.Cmd):
     }
 
     def emptyline(self):
-        """Do nothing for an empty line."""
+        """Do nothing upon receiving an empty line."""
         pass
 
     def default(self, arg):
-        """The default behavior for cmd module when an input is invalid"""
+        """the default behavior for a cmd module when input is invalid"""
         argdict = {
             "all": self.do_all,
             "show": self.do_show,
@@ -75,11 +77,11 @@ class HBNBCommand(cmd.Cmd):
         return False
 
     def do_quit(self, arg):
-        """Quiting a command to exit the program."""
+        """the quiting command to exit the program."""
         return True
 
     def do_EOF(self, arg):
-        """The EOF signal to exit the program."""
+        """the EOF signal to exit the program."""
         print("")
         return True
 
@@ -114,7 +116,7 @@ class HBNBCommand(cmd.Cmd):
             print(objdict["{}.{}".format(argl[0], argl[1])])
 
     def do_destroy(self, arg):
-        """Usage: destroying <class> <id> or <class>.destroy(<id>)
+        """Usage: destroy <class> <id> or <class>.destroy(<id>)
         Deleting a class instance of a given id."""
         argl = parse(arg)
         objdict = storage.all()
@@ -132,8 +134,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Usage: all or all <class> or <class>.all()
-        Displaying string representations of all the instances of a given class.
-        If there is no class specified, it displays all instantiated objects."""
+        Displaying the string representations of all instances of a given class.
+        If no class is specified, displays all instantiated objects."""
         argl = parse(arg)
         if len(argl) > 0 and argl[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
